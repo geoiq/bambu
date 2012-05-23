@@ -8,43 +8,23 @@
 */
 function Bambu() {
 
-  var data,
-    id,
-    values,
-    field,
-    default_fill;
-
+  // defaults 
+  var colors = 'Reds',
+    type = 'quantile',
+    classes = 5,
+    style = '',
+    data = [],
+    id = '#',
+    field = 'null',
+    default_fill; 
+    
+  // returnable class
   var bambu = function(){};
 
-  bambu.id = function(x){
-    if (!arguments.length) return id;
-    id = x;
-    return bambu;
-  };
+  // regenerates the classification 
+  bambu.classify = function(){
 
-  bambu.data = function(x){
-    if (!arguments.length) return data;
-    data = x;
-    values = _.values(data);
-    return bambu; 
-  };
-
-  bambu.values = function(x){
-    if (!arguments.length) return values;
-    values = x;
-    return values;
-  };
-
-  bambu.field = function(x){
-    if (!arguments.length) return field;
-    field = x;
-    return bambu;
-  };
-
-
-  bambu.classify = function(type, ramp, n){
-    
-    var vals = values.sort(function(a, b) {
+    var vals = data.sort(function(a, b) {
       return a - b;
     });
 
@@ -52,8 +32,8 @@ function Bambu() {
       case 'quantile':
           var breaks = [];
 
-          for (var i = 0; i < n; i++) {
-            breaks.push( vals[Math.ceil(i * (vals.length - 1) / n)])
+          for (var i = 0; i < classes; i++) {
+            breaks.push( vals[Math.ceil(i * (vals.length - 1) / classes)])
           }
 
           break;
@@ -69,18 +49,64 @@ function Bambu() {
           break;
     }
 
-    var classes = [];
-    var style = '#'+ id +' { ' + ((default_fill) ? 'polygon-fill: ' + default_fill + '; ' : '');
+    var bins = [];
+    style = '#'+ id +' { ' + ((default_fill) ? 'polygon-fill: ' + default_fill + '; ' : '');
 
- 
     for (var b = 0; b < breaks.length-1; b++){
       var break_val = breaks[b];
-      classes.push('['+field+' > '+break_val+'] { polygon-fill: ' + rgb2hex(colorbrewer[ramp][n][b]) + '; }');
+      bins.push('['+field+' > '+break_val+'] { polygon-fill: ' + rgb2hex(colorbrewer[colors][classes][b]) + '; }');
     }
 
-    return style + classes.join(' ') + '}';
+    style = style + bins.join(' ') + '}';
+    return style;
 
   }
+
+  bambu.id = function(x, gen){
+    if (!arguments.length) return id;
+    id = x;
+    if (gen) bambu.classify();
+    return bambu;
+  };
+
+  bambu.data = function(x, gen){
+    if (!arguments.length) return data;
+    data = x;
+    if (gen) bambu.classify();
+    return bambu; 
+  };
+
+  bambu.field = function(x, gen){
+    if (!arguments.length) return field;
+    field = x;
+    if (gen) bambu.classify();
+    return bambu;
+  };
+
+  bambu.colors = function(x, gen){
+    if (!arguments.length) return colors;
+    colors = x;
+    if (gen) bambu.classify();
+    return bambu;
+  };
+
+   bambu.classes = function(x, gen){
+    if (!arguments.length) return classes;
+    classes = x;
+    if (gen) bambu.classify();
+    return bambu;
+  };
+
+  bambu.type = function(x, gen){
+    if (!arguments.length) return type;
+    type = x;
+    if (gen) bambu.classify();
+    return bambu;
+  };
+
+  bambu.style = function(){
+    return style;
+  };
 
 
   function rgb2hex(rgb){
@@ -97,7 +123,7 @@ function Bambu() {
 
 
 if (typeof module !== 'undefined' && module.exports) {
-  _ = require('underscore');
+  //_ = require('underscore');
   colorbrewer = require('./colorbrewer.js');
   module.exports.Bambu = Bambu;
 }
