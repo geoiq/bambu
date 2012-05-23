@@ -92,7 +92,8 @@ function Bambu() {
 
    bambu.classes = function(x, gen){
     if (!arguments.length) return classes;
-    classes = x;
+    classes = Math.min(x,9);
+    classes = Math.max(classes,3);
     if (gen) bambu.classify();
     return bambu;
   };

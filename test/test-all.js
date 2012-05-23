@@ -19,6 +19,12 @@ assert.equal(bambu.classes(), 5);
 assert.equal(bambu.type(), 'quantile');
 assert.equal(bambu.colors(), 'Reds');
 
+bambu.classes(10)
+console.log(bambu.classes());
+
+bambu.classes(-5)
+console.log(bambu.classes());
+
 // get the style 
 console.log(bambu.style())
 
