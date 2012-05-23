@@ -1,5 +1,4 @@
 # Bambu.js
-_new_
 
 ### A library for generating thematic carto.js styles from arrays of data 
 
@@ -8,10 +7,10 @@ Bambu is very simple Javascript library for classifying arrays of data, and can 
 Right now Bambu supports Quantile and Equal Interval classifications.
 
 ## Example
-_new_
 
 `
 // start with a simple array of data 
+
 var data = [0,35,2,41,46,10,9,5,3,23,55,76,64,42,22,22,37,6,77,8,3,1,3,4,5,11,14,17,34];
 
 var bambu = Bambu()
@@ -23,25 +22,28 @@ var bambu = Bambu()
   .classes(5);
 
 // to access the style string we call style() 
+
 var style = bambu.style();
 
 // we can update the style very easily by calling any of the methods above
+
 var new_style = bambu.colors('Blues').classify();
 
 // depending on the size of our data array we can choose to delay a re-classification
+
 // or force it generate a new one
+
 bambu.colors('YlGnBu', false).classes(9); // delays re-classification
+
 var style = bambu.classify
 
 `
 
 
 ## Dependencies
-_new_
 
 1. colorbrewer.js (see ./colorbrewer.js) 
 
 ## Authors
-_new_
 
 * Chris Helm (chelm)
