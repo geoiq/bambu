@@ -8,8 +8,7 @@ Right now Bambu supports Quantile and Equal Interval classifications.
 
 ## Example
 
-`
-// start with a simple array of data 
+`// start with a simple array of data 
 
 var data = [0,35,2,41,46,10,9,5,3,23,55,76,64,42,22,22,37,6,77,8,3,1,3,4,5,11,14,17,34];
 
@@ -37,7 +36,6 @@ bambu.colors('YlGnBu', false).classes(9); // delays re-classification
 
 var style = bambu.classify
 
-`
 
 
 ## Dependencies
