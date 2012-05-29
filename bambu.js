@@ -16,6 +16,7 @@ function Bambu() {
     data = [],
     id = '#',
     field = 'null',
+    opacity = 1,
     default_fill; 
     
   // returnable class
@@ -41,16 +42,16 @@ function Bambu() {
           var breaks = [],
             range = vals[vals.length - 1] - vals[0];
 
-          for (var i=0; i < n; i++) {
-            breaks.push(Math.floor(vals[0] + i * range / n))
+          for (var i=0; i < classes; i++) {
+            breaks.push(Math.floor(vals[0] + i * range / classes))
           }
 
-          breaks[n] = vals[vals.length - 1];
+          breaks[classes] = vals[vals.length - 1];
           break;
     }
 
     var bins = [];
-    style = '#'+ id +' { ' + ((default_fill) ? 'polygon-fill: ' + default_fill + '; ' : '');
+    style = '#'+ id +' { ' + ((default_fill) ? 'polygon-fill: ' + default_fill + '; ' : ' polygon-opacity: '+ opacity+'; ');
 
     for (var b = 0; b < breaks.length-1; b++){
       var break_val = breaks[b];
@@ -104,6 +105,13 @@ function Bambu() {
     if (gen) bambu.classify();
     return bambu;
   };
+
+  bambu.opacity = function(x, gen){
+    if (!arguments.length) return opacity;
+    opacity = x;
+    if (gen) bambu.classify();
+    return bambu;
+  };  
 
   bambu.style = function(){
     return style;
