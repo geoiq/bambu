@@ -43,4 +43,4 @@ Right now Bambu supports Quantile and Equal Interval classifications.
 
 ## Authors
 
-* Chris Helm (chelm)
+* Chris Helm (chelm now with Esri)
